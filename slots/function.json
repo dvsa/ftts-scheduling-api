@@ -1,0 +1,21 @@
+{
+    "bindings": [
+      {
+        "authLevel": "anonymous",
+        "type": "httpTrigger",
+        "direction": "in",
+        "name": "req",
+        "route": "v1/tcn/{regionId}/testCentres/{testCentreId}/slots",
+        "methods": [
+          "get"
+        ]
+      },
+      {
+        "type": "http",
+        "direction": "out",
+        "name": "res"
+      }
+    ],
+    "scriptFile": "../dist/slots/index.js"
+  }
+  

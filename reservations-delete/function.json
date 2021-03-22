@@ -1,0 +1,19 @@
+{
+    "bindings": [
+      {
+        "authLevel": "anonymous",
+        "type": "httpTrigger",
+        "direction": "in",
+        "name": "req",
+        "route": "v1/tcn/{regionId}/reservations/{reservationId}",
+        "methods": ["delete"]
+      },
+      {
+        "type": "http",
+        "direction": "out",
+        "name": "res"
+      }
+    ],
+    "scriptFile": "../dist/reservations/index.js"
+  }
+  

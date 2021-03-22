@@ -1,0 +1,66 @@
+/*
+
+******************************************************************************
+This file is a template and should be removed once team introduces new API version
+******************************************************************************
+Proposed solution for API versioning:
+
+All HTTP endpoints should have proper version in URL, e.g. ``/api/v1/test-centres``. To handle routing use Azure Functions Proxy with ``proxies.json`` configuration file. Initially, when every endpoint is in ``v1`` version, there is no need for any route.
+
+How to introduce new ``v2`` version (for example endpoint ``/api/v2/test-centres``) :
+
+- create function handler in ``src``
+- create function description in ``function.json`` file with ``"route": "v2/test-centres"``
+- add ``v2/test-centres`` proxy, which will handle this specific endpoint:
+  ```
+  "TestCentresV2": {
+    "matchCondition": {
+      "route": "/api/v2/test-centres"
+    },
+    "backendUri": "http://localhost/api/v2/test-centres"
+  }
+  ```
+- add ``VersionV2`` proxy (if not exists) in ``proxies.json``:
+  ```
+  "VersionV2": {
+    "matchCondition": {
+      "route": "/api/v2/{*all}"
+    },
+    "backendUri": "http://localhost/api/v1/{all}"
+  }
+  ```
+  It will route add ``/api/v2`` requests to ``v1`` handlers, for "only-v1" endpoints, unimplemented in ``v2``.
+
+  Azure Functions Host will resolve ''localhost'' (without specified port) as it's own instance, so there isn't need to change it.
+*/
+
+{
+  "$schema": "http://json.schemastore.org/proxies",
+  "proxies": {
+    "VersionV2ForUninmplementedEndpoints": {
+      "matchCondition": {
+        "route": "/api/v2/{*all}"
+      },
+      "backendUri": "http://localhost/api/v1/{all}"
+    },
+    "VersionV3ForUninmplementedEndpoints": {
+      "matchCondition": {
+        "route": "/api/v3/{*all}"
+      },
+      "backendUri": "http://localhost/api/v2/{all}"
+    },
+    "TestCentresV2": {
+      "matchCondition": {
+        "route": "/api/v2/test-centres"
+      },
+      "backendUri": "http://localhost/api/v2/test-centres"
+    },
+    "NewEndpointIntroducedInV3": {
+      "debug": true,
+      "matchCondition": {
+        "route": "/api/v3/newendpoint"
+      },
+      "backendUri": "http://localhost/api/v3/newendpoint"
+    }
+  }
+}
