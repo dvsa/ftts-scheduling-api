@@ -25,7 +25,7 @@
         "axios": "0.21.1",
         "dotenv": "8.2.0",
         "moment": "2.27.0",
-        "dayjs": "1.9.1"
+        "dayjs": "1.10.4"
     },
     "devDependencies": {
         "@azure/functions": "1.2.2",
