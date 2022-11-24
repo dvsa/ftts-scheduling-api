@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "name": "behaviouralMarkersSync",
+      "type": "timerTrigger",
+      "direction": "in",
+      "schedule": "%BEHAVIOURAL_MARKERS_SYNC_CRON_TIMER%",
+      "runOnStartup": false,
+      "useMonitor": true
+    }
+  ],
+  "scriptFile": "../dist/behavioural-markers-sync/index.js"
+}

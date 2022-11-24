@@ -1,0 +1,6 @@
+{
+    "ext": "ts,json",
+    "exec": "npm run func:start",
+    "watch": ["./src"],
+    "delay": "2500"
+}
